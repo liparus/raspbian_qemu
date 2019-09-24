@@ -2,6 +2,8 @@
 
 
 # Mount and Run Debian Jessie (ARM) in QEMU:
+# tämä on testi kirjoitusta tällä näppiksellä
+
 
 # Make sure that Jessie .img is mounted in /mnt/raspbian
 #	- sudo mount -v -o offset=<calculate offset: start*512> -t ext4 ~/qemu_vms/<rasbian_image.img>
