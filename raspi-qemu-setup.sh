@@ -48,10 +48,11 @@ _dwnld-set() {
 	mkdir $HOME/qemu_vms
 	cd $HOME/qemu_vms || return
 	git clone https://github.com/dhruvvyas90/qemu-rpi-kernel.git
-	cd -
+	cd - ||return
 	echo ""
 	echo ""
-	echo "Download Debian Jessie image from: http://downloads.raspberrypi.org/raspbian/images/raspbian-2017-04-10/"
+	echo "Download Debian Jessie image from: \
+			http://downloads.raspberrypi.org/raspbian/images/raspbian-2017-04-10/"
 	echo "And Unzip to ~/qemu_vms"
 	echo "OR.. use selection 3 and go get some coffee!" 
 	sleep 5
@@ -59,58 +60,58 @@ _dwnld-set() {
 
 # Download Raspbian Jessie Image:
 _dwnld-img() {
-	cd $HOME/qemu_vms
+	cd "$HOME/qemu_vms" ||return
 	wget http://downloads.raspberrypi.org/raspbian/images/raspbian-2017-04-10/2017-04-10-raspbian-jessie.zip
 	unzip 2017-04-10-raspbian-jessie.zip
 	rm 2017-04-10-raspbian-jessie.zip
-	cd -
+	cd - ||return
 }
 
 # Mount and configure Raspbian:
 _mount-rpi() {
 	mkdir /mnt/raspbian
-	cd $HOME/qemu_vms
-	mount -v -o offset="$image_offset" -t ext4 $image_iso /mnt/raspbian
+	cd "$HOME/qemu_vms" ||return
+	mount -v -o offset="$image_offset" -t ext4 "$image_iso /mnt/raspbian"
 	echo ""
 	echo "Starting vi: comment out all fields (#)"
 	sleep 7
 	vi /mnt/raspbian/etc/ld.so.preload
-	cd -
+	cd - ||return
 	
 	# Change "qemu_vms" permissions from Root to $USER
-	chown -R $USER:$USER $HOME/qemu_vms
+	chown -R "$USER:$USER $HOME/qemu_vms"
 }
 
 _fstab-edit() {
 	echo "Requires manual editing"
 	echo "IF you see anything mmcblk0 in fstab, then:"
-	echo "1. Replace the firt entry containing /dev/mmcblk0p1 with /dev/sda1"
+	echo "1. Replace the first entry containing /dev/mmcblk0p1 with /dev/sda1"
 	echo "2. Replace the second entry containing /dev/mmcblk0p2 with /dev/sda2"
 	echo "3. Save & Exit"
 	echo "INFO IN README.md"
 	sleep 7
 
 	vi /mnt/raspbian/etc/fstab
-	cd $HOME
+	cd "$HOME" ||return
 	umount /mnt/raspbian
 }
 
 # Start Debian Jessie in QEMU:
 _start-rpi-ssh() {
-	qemu-system-arm -kernel $qemu_kernel -cpu arm1176 -m 256 -M versatilepb -serial stdio \
+	qemu-system-arm -kernel "$qemu_kernel" -cpu arm1176 -m 256 -M versatilepb -serial stdio \
 		-usb -device usb-mouse -show-cursor -append "root=/dev/sda2 rootfstype=ext4 rw" \
-		-hda $image_iso -redir tcp:5022::22 -no-reboot
+		-hda "$image_iso" -redir tcp:5022::22 -no-reboot
 }
 
 _start-rpi() {
-	qemu-system-arm -kernel $qemu_kernel -cpu arm1176 -m 256 -M versatilepb -serial stdio \
-		-usb -device usb-mouse -show-cursor -append "root=/dev/sda2 rootfstype=ext4 rw" -hda $image_iso -no-reboot
+	qemu-system-arm -kernel "$qemu_kernel" -cpu arm1176 -m 256 -M versatilepb -serial stdio \
+		-usb -device usb-mouse -show-cursor -append "root=/dev/sda2 rootfstype=ext4 rw" -hda "$image_iso" -no-reboot
 }
 
 # Resize Raspbian Image: !!! NOT WORKING !!!
 _resize-img() {
-	cd $HOME/qemu_vms
-	cp $image_iso raspbian.img
+	cd "$HOME/qemu_vms" ||return
+	cp "$image_iso raspbian.img"
 	# Resize +6G
 	qemu-image resize raspbian.img +6G
 
@@ -131,12 +132,13 @@ do
 	clear
 
 	printf "\n\n"
-	printf "${RED}*************************************************${NC}\n"
-	printf "${GREEN} UNSTABLE RASPBIAN JESSIE INSTALL & RUN IN QEMU${NC}\n"
-	printf "${RED}*************************************************${NC}\n"
-	printf "\n\n"
-	printf "\t\t${RED}USE SUDO || GTFO${NC}\n"
-	printf "\t\t${RED}<3<3<3<3<3<3<3<3${NC}\n\n"
+	printf "${RED}************************************************${NC}\n"
+	printf "${GREEN} UNSTABLE RASPBIAN JEShSIE INSTALL & RUN IN QEMU${NC}\n"
+	printf "${RED}************************************************${NC}\n"
+	printf "\n"
+	printf "\t${GREEN}  \/                      \/${NC}\n"
+	printf "\t${RED} ()()  USE SUDO || GTFO  ()()${NC}\n"
+	printf "\t${RED}  ()   <3<3<3<3<3<3<3<3   ()${NC}\n\n\n"
 
 	echo "1) Update & Install QEMU" 
 	echo "2) Download Raspbian Jessie Kernel & Set Environment"
