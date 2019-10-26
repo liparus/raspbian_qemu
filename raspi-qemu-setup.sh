@@ -133,7 +133,7 @@ do
 
 	printf "\n\n"
 	printf "${RED}************************************************${NC}\n"
-	printf "${GREEN} UNSTABLE RASPBIAN JEShSIE INSTALL & RUN IN QEMU${NC}\n"
+	printf "${GREEN} UNSTABLE RASPBIAN JESSIE INSTALL & RUN IN QEMU${NC}\n"
 	printf "${RED}************************************************${NC}\n"
 	printf "\n"
 	printf "\t${GREEN}  \/                      \/${NC}\n"
