@@ -142,7 +142,8 @@ do
 
 	echo "1) Update & Install QEMU" 
 	echo "2) Download Raspbian Jessie Kernel & Set Environment"
-	echo "3) Download Raspbian Jessie ISO Image (it takes some time, depending on connection)"
+	echo "3) Download Raspbian Jessie ISO Image"
+	echo "   (it takes some time, depending on your connection)"
 	echo "4) Mount Raspbian"
 	echo "5) Edit Raspbian fstab"
 	echo "6) Run Raspbian with SSH (redir 5022::22)"
