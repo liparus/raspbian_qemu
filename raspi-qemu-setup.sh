@@ -105,7 +105,8 @@ _start-rpi-ssh() {
 
 _start-rpi() {
 	qemu-system-arm -kernel "$qemu_kernel" -cpu arm1176 -m 256 -M versatilepb -serial stdio \
-		-usb -device usb-mouse -show-cursor -append "root=/dev/sda2 rootfstype=ext4 rw" -hda "$image_iso" -no-reboot
+		-usb -device usb-mouse -show-cursor -append "root=/dev/sda2 rootfstype=ext4 rw" \
+		-hda "$image_iso" -no-reboot
 }
 
 # Resize Raspbian Image: !!! NOT WORKING !!!
@@ -116,8 +117,9 @@ _resize-img() {
 	qemu-image resize raspbian.img +6G
 
 	# Start the original Raspbian with enlarged image as second hard drive:
-	qemu-system-arm -kernel ~/qemu_vms/<kernel-qemu> -cpu arm1176 -m 256 -M versatilepb -serial stdio \
-	       	-append "root=/dev/sda2 rootfstype=ext4 rw" -hda $HOME/qemu_vms/$image_iso -redir tcp:5022::22 \
+	qemu-system-arm -kernel ~/qemu_vms/<kernel-qemu> -cpu arm1176 -m 256 \
+			-M versatilepb -serial stdio -append "root=/dev/sda2 rootfstype=ext4 rw" \
+			-hda $HOME/qemu_vms/$image_iso -redir tcp:5022::22 \
 	       	-no-reboot -hdb raspbian.img
 }
 
