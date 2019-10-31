@@ -1,0 +1,27 @@
+
+# ******************************************
+#
+# Cheatsheet for QEMU
+# (Mostly commands used in raspbi_qemu.sh)
+#
+# ******************************************
+
+
+-cpu = select CPU model (-cpu help for list and additional feature)
+
+-m = [size=]megs[,slots=n,maxmem=size]
+     Sets guest startup RAM size to megs megabytes. Default is 128MiB.
+     Optionally suffix of "M" or "G" can br used to signify a value in
+     megabytes or gigabytes respectively.
+     Optional pair slots, maxmem could be used to set amount of
+     hotpluggable memory slots and maximum amount of memory.
+     (NOTE: maxmem must be aligned to the page size.)
+
+-k = keyboard layout
+
+-hd[a/b/c/d] file = Block device options, use file as hard disk
+		    0, 1, 2 or 3 image (see disk_images)
+
+-blockdev = Define a new block driver node.
+
+-append = (Linux/Multiboot boot specific) Use cmdline as kernel command line
