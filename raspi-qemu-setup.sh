@@ -26,12 +26,19 @@ GREEN='\033[1;32m'
 RED='\033[0;31m'
 
 
+#**************
+# ARM EMULATOR
+#**************
+
 # Set variables
 image_iso="$HOME/qemu_vms/2017-04-10-raspbian-jessie.img"
 image_start="$(fdisk -l "$image_iso" | tail -n 1 | awk '{print $2}')"
 image_offset=$((image_start*512))
 qemu_kernel="$HOME/qemu_vms/qemu-rpi-kernel/kernel-qemu-4.4.34-jessie"
+ERROR_LOG="$HOME/qemu-vms/error_log.txt"
 
+# Create installation error log:
+touch "$HOME/qemu_vms/error_log.txt"
 
 
 
@@ -45,8 +52,8 @@ _install-qemu() {
 
 # Download & set environment:
 _dwnld-set() {
-	mkdir $HOME/qemu_vms
-	cd $HOME/qemu_vms || return
+	mkdir "$HOME/qemu_vms"
+	cd "$HOME/qemu_vms" || return
 	git clone https://github.com/dhruvvyas90/qemu-rpi-kernel.git
 	cd - ||return
 	echo ""
@@ -80,7 +87,7 @@ _mount-rpi() {
 	
 	# Change "qemu_vms" permissions from Root to $USER
 	chown -R "$USER:$USER $HOME/qemu_vms"
-}
+} >> $ERROR_LOG
 
 _fstab-edit() {
 	echo "Requires manual editing"
@@ -119,10 +126,16 @@ _resize-img() {
 	# Start the original Raspbian with enlarged image as second hard drive:
 	qemu-system-arm -kernel ~/qemu_vms/<kernel-qemu> -cpu arm1176 -m 256 \
 			-M versatilepb -serial stdio -append "root=/dev/sda2 rootfstype=ext4 rw" \
-			-hda $HOME/qemu_vms/$image_iso -redir tcp:5022::22 \
+			-hda "$HOME/qemu_vms/$image_iso" -redir tcp:5022::22 \
 	       	-no-reboot -hdb raspbian.img
 }
 
+
+#***************
+# MISP EMULATOR
+#***************
+
+## ADD MISP EMULATOR CODE HERE (?)
 
 
 # MAIN:
