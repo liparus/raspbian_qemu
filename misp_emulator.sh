@@ -50,6 +50,11 @@ _create_image() {
 	qemu-img create -f qcow2 hda.img 2G
     }
 
+
+
+## ! NOTE: next step is graphical installation !
+# ---------------------------------------------
+
 _install_debian_misp() {
 	# Install Debian MIPS:
 	qemu-system-mips -M malta \
@@ -61,25 +66,25 @@ _install_debian_misp() {
     }
 
 
-## ! NOTE: next step is graphical installation !
-# ---------------------------------------------
 
 _mount_bootpart() {
 	# Mount the boot partition of the image file: 
 	sudo modprobe nbd max_part=63
 	sudo qemu-nbd -c /dev/nbd0 hda.img
 	sudo mount /dev/nbd0p1 /mnt
+
+
+	## Copy a single file or the entire folder to the current directory:
+	cp -r /mnt/boot/initrd.img-4.19.0-11-4kc-malta .  # copy only initrd.img file
+	#cp -r /mnt/boot .                                 # copy the entire boot folder
+
+	sleep 1
+
+	## Unmount the image:
+	sudo umount /mnt
+	sudo qemu-nbd -d /dev/nbd0
+
     }
-
-
-## Copy a single file or the entire folder to the current directory:
-#cp -r /mnt/boot/initrd.img-4.19.0-10-4kc-malta .  # copy only initrd.img file
-#cp -r /mnt/boot .                                 # copy the entire boot folder
-
-## Unmount the image:
-#sudo umount /mnt
-#sudo qemu-nbd -d /dev/nbd0
-
 
 _start_qemu() {
     # Start the image type:
@@ -87,7 +92,7 @@ _start_qemu() {
     qemu-system-mips -M malta \
 	-m 256 -hda hda.img \
 	-kernel vmlinux-4.19.0-11-4kc-malta \
-	-initrd initrd.img-4.19.0-10-4kc-malta \
+	-initrd initrd.img-4.19.0-11-4kc-malta \
 	-append "root=/dev/sda1 console=ttyS0 nokaslr" \
 	-nographic \
 	-device e1000-82545em,netdev=user.0 \
@@ -95,20 +100,23 @@ _start_qemu() {
 
 }
 
+
+
+    _setup_ssh() {
+
+    ## To access the guest machine from Host machine to upload a file:
+    #scp -P 5555 file.txt root@localhost:/tmp
+
+    # Or to connect via ssh:
+    ssh root@localhost -p 5555
+
+}
+
+
 _uninstall_deb() {
     
     echo ""
     }
-
-
-
-## To access the guest machine from Host machine to upload a file:
-#scp -P 5555 file.txt root@localhost:/tmp
-
-# Or to connect via ssh:
-#ssh root@localhost -p 5555
-
-
 
 ## MAIN
 
@@ -133,8 +141,9 @@ do
     echo "5) Mount image file boot partition"
     echo "6) Run Debian MIPS" 
     echo "7) JUST GO !!"
-    echo "8) Uninstall Debian MISP"
-    echo "9) Exit" 
+    echo "8) SSH Connect"
+    echo "9) Uninstall Debian MISP" 
+    echo "10) Exit" 
     echo ""
     echo "Selection: "
 
@@ -197,7 +206,7 @@ do
 	    ;;
 
 	8)
-	    _uninstall_deb
+	    _setup_ssh
 	    printf "${GREEN}All good, continue${NC}\n"
 	    sleep 3
 	    echo ""
@@ -205,6 +214,14 @@ do
 	    ;;
 
 	9)
+	    _uninstall_deb
+	    printf "${GREEN}All good, continue${NC}\n"
+	    sleep 3
+	    echo ""
+	    echo "Selection: "
+	    ;;
+
+	10)
 	    break
 	    ;;
 
