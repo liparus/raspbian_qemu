@@ -1,0 +1,38 @@
+#
+#
+#
+# NOTES FOR MISP EMULATOR
+#
+#
+
+- Debian installation takes a good part of your lifetime <3
+- Add uninstall
+- Graphical install doesn't work that well inside tmux pane
+- Add option to emulate firmware (OR fix FAT (Firmware Analysis Toolkit))
+- Add all VM files to gitignore
+    * Only install scripts, notes and README to github
+- ! CHECK ALL ARGUMENTS INSIDE _install_debian_misp FUNCTION !
+    * Details about what they do
+    * Learn!
+- Add user input for disk size, memory etc
+    * Disk size at the moment is 2GB
+
+
+    Minimal hardware requirement as per Debian official documentation:
+    ******************************************************************    
+
+    INSTALL TYPE | MINIMUM RAM | RECOMMENDED RAM | STORAGE 
+    ------------------------------------------------------
+    No Desktop	 | 128MB       | 512MB           | 2GB
+    ------------------------------------------------------
+    Desktop	 | 256MB       | 1GB		 | 10GB
+
+
+    (debian.org)
+
+
+
+
+
+
+
