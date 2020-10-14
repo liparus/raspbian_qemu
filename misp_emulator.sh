@@ -38,6 +38,8 @@ _download_installer() {
 	# Download Kernel
 	# NOTE: versions might differ
 	wget http://ftp.debian.org/debian/dists/stable/main/installer-mips/current/images/malta/netboot/vmlinux-4.19.0-11-4kc-malta
+    
+    exit 0
     }
 
 
@@ -48,6 +50,8 @@ _download_installer() {
 _create_image() {
 	# Create an qcow2 format image with 2G of storage:
 	qemu-img create -f qcow2 hda.img 2G
+	
+	exit 0
     }
 
 
@@ -63,7 +67,10 @@ _install_debian_misp() {
   	-initrd initrd.gz \
   	-append "console=ttyS0 nokaslr" \
   	-nographic
+   
+	exit 0
     }
+
 
 
 
@@ -84,7 +91,10 @@ _mount_bootpart() {
 	sudo umount /mnt
 	sudo qemu-nbd -d /dev/nbd0
 
+	exit 0
     }
+
+
 
 _start_qemu() {
     # Start the image type:
@@ -98,11 +108,12 @@ _start_qemu() {
 	-device e1000-82545em,netdev=user.0 \
 	-netdev user,id=user.0,hostfwd=tcp::5555-:22
 
-}
+	exit 0
+    }
 
 
 
-    _setup_ssh() {
+_setup_ssh() {
 
     ## To access the guest machine from Host machine to upload a file:
     #scp -P 5555 file.txt root@localhost:/tmp
@@ -110,13 +121,18 @@ _start_qemu() {
     # Or to connect via ssh:
     ssh root@localhost -p 5555
 
-}
+    }
 
 
 _uninstall_deb() {
     
-    echo ""
-    }
+    sudo rm hda.img
+    sudo rm initrd.gz
+    sudo rm vmlinux-4.19.0-11-4kc-malta
+    sudo rm initrd.img-4.19.0-11-4kc-malta
+
+    exit 0
+    } > /dev/null 2>&1
 
 ## MAIN
 
