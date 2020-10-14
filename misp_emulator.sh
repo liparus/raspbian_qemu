@@ -76,7 +76,7 @@ _mount_bootpart() {
 
 	## Copy a single file or the entire folder to the current directory:
 	cp -r /mnt/boot/initrd.img-4.19.0-11-4kc-malta .  # copy only initrd.img file
-	#cp -r /mnt/boot .                                 # copy the entire boot folder
+	#cp -r /mnt/boot .                                # copy the entire boot folder
 
 	sleep 1
 
@@ -126,9 +126,9 @@ do
     clear
 
     printf "\n"
-    printf "${RED}*********************************************${NC}\n"
-    printf "${GREEN} UNSTABLE MISP QEMU EMULATOR INSTALL & RUN${NC}\n"
-    printf "${RED}*********************************************${NC}\n"
+    printf "\t${RED}*****************************${NC}\n"
+    printf "\t${GREEN} UNSTABLE QEMU MISP EMULATOR${NC}\n"
+    printf "\t${RED}*****************************${NC}\n"
     printf "\n"
     printf "\t${GREEN}  \/                      \/${NC}\n"
     printf "\t${RED} ()()  USE SUDO || GTFO  ()()${NC}\n"
@@ -140,10 +140,10 @@ do
     printf "4) Install Debian MIPS (${GRAY}Graphical install${NC})\n" 
     echo "5) Mount image file boot partition"
     echo "6) Run Debian MIPS" 
-    echo "7) JUST GO !!"
-    echo "8) SSH Connect"
-    echo "9) Uninstall Debian MISP" 
-    echo "10) Exit" 
+    printf "7) JUST GO !! (${RED}DOES NOTHING!${NC}\n"
+    printf "8) SSH Connect (${RED}DOES NOTHING!${NC}\n"
+    printf "9) Uninstall Debian MISP (${RED}DOES NOTHING${NC}\n" 
+    echo "0) Exit" 
     echo ""
     echo "Selection: "
 
@@ -221,7 +221,7 @@ do
 	    echo "Selection: "
 	    ;;
 
-	10)
+	0)
 	    break
 	    ;;
 
@@ -231,7 +231,7 @@ do
     esac
 done
 
-printf "\n\nHope it works.. If not, please fix & imporve <3\n\n"
+printf "\n\nHope it works.. If not, please fix & improve <3\n\n"
 exit 0
 
 	 
