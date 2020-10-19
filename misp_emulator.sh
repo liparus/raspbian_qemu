@@ -2,7 +2,7 @@
 
 #
 #
-# Add MISP architecture to Raspbian Qemu ARM emulator script (raspi-qemu-setup.sh)
+# Add MIPS architecture to Raspbian Qemu ARM emulator script (raspi-qemu-setup.sh)
 #
 # Commands & guide from: https://markuta.com/how-to-build-a-mips-qemu-image-on-debian/
 
@@ -10,13 +10,13 @@
 # set script colors
 NC='\033[0m'		# No color
 GREEN='\033[1;32m'
-BLUE='\033[1;34m'
+#BLUE='\033[1;34m'
 GRAY='\033[0;36m'
 RED='\033[0;31m'
 
 
 #***************
-# MISP EMULATOR
+# MIPS EMULATOR
 #***************
 
 
@@ -143,7 +143,7 @@ do
 
     printf "\n"
     printf "\t${RED}*****************************${NC}\n"
-    printf "\t${GREEN} UNSTABLE QEMU MISP EMULATOR${NC}\n"
+    printf "\t${GREEN} UNSTABLE QEMU MIPS EMULATOR${NC}\n"
     printf "\t${RED}*****************************${NC}\n"
     printf "\n"
     printf "\t${GREEN}  \/                      \/${NC}\n"
@@ -153,12 +153,12 @@ do
     echo "1) Update & install QEMU" 
     echo "2) Download Installer & Kernel boot files" 
     echo "3) Create QEMU image file" 
-    printf "4) Install Debian MIPS (${GRAY}Graphical install${NC})\n" 
+    printf "4) Install Debian MIPS (${GRAY}Graphical install, takes forever to complete${NC})\n" 
     echo "5) Mount image file boot partition"
     echo "6) Run Debian MIPS" 
-    printf "7) JUST GO !! (${RED}DOES NOTHING!${NC}\n"
-    printf "8) SSH Connect (${RED}DOES NOTHING!${NC}\n"
-    printf "9) Uninstall Debian MISP (${RED}DOES NOTHING${NC}\n" 
+    printf "7) JUST GO !! (${RED}DOES NOTHING!${NC})\n"
+    printf "8) SSH Connect (${RED}DOES NOTHING!${NC})\n"
+    printf "9) Uninstall Debian MIPS\n" 
     echo "0) Exit" 
     echo ""
     echo "Selection: "
