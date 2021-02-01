@@ -33,6 +33,11 @@
 
 
 
+TO-DO:
+------
 
+- Put MIPS & ARM emulators together in same script:
+    * cli args?
+	- keep menu as clean as possible
 
 
