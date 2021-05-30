@@ -87,7 +87,7 @@ _mount-rpi() {
 	
 	# Change "qemu_vms" permissions from Root to $USER
 	chown -R "$USER:$USER $HOME/qemu_vms"
-} >> $ERROR_LOG
+} #>> $ERROR_LOG
 
 _fstab-edit() {
 	echo "Requires manual editing"

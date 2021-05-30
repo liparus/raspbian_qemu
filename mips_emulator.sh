@@ -37,7 +37,7 @@ _download_installer() {
 
 	# Download Kernel
 	# NOTE: versions might differ
-	wget http://ftp.debian.org/debian/dists/stable/main/installer-mips/current/images/malta/netboot/vmlinux-4.19.0-11-4kc-malta
+	wget http://ftp.debian.org/debian/dists/stable/main/installer-mips/current/images/malta/netboot/vmlinux-4.19.0-16-4kc-malta
     
     exit 0
     }
@@ -63,7 +63,7 @@ _install_debian_misp() {
 	# Install Debian MIPS:
 	qemu-system-mips -M malta \
   	-m 256 -hda hda.img \
-  	-kernel vmlinux-4.19.0-11-4kc-malta \
+  	-kernel vmlinux-4.19.0-15-4kc-malta \
   	-initrd initrd.gz \
   	-append "console=ttyS0 nokaslr" \
   	-nographic
