@@ -108,6 +108,9 @@ _start-rpi-ssh() {
 	qemu-system-arm -kernel "$qemu_kernel" -cpu arm1176 -m 256 -M versatilepb -serial stdio \
 		-usb -device usb-mouse -show-cursor -append "root=/dev/sda2 rootfstype=ext4 rw" \
 		-hda "$image_iso" -redir tcp:5022::22 -no-reboot
+
+		# Original SSH args: -redir tcp:5022::22
+		# Use: '-netdev user,hostfwd=...' instead
 }
 
 _start-rpi() {
